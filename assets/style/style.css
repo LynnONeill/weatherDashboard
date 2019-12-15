@@ -4,3 +4,21 @@ h1 {
     height: 55px;
     text-align: center;
 }
+.dayContainer {
+    background-color: rgb(141, 177, 189);
+    float: left;
+    border-radius: 25px;
+    width: 150px;
+    padding: 10px;
+    margin-right: 5px;
+}
+
+#searchHistoryButton {
+    height: 25px;
+    border: solid;
+    border: black;
+}
+
+.green {
+    background-color: green;
+}
