@@ -57,7 +57,7 @@ window.onload = function () {
         }).then(function (weather) {
             console.log(weather);
             let newDate = $("<h3>").text(weather.name + " (" + moment().format("L") + ")");
-            let temperature = $("<p>").text("Temperature: " + weather.main.temp.toFixed(1) + String.fromCharCode(176) + "" + "F");
+            let temperature = $("<p>").text("Temperature: " + weather.main.temp.toFixed(1) + String.fromCharCode(176) + "" + " F");
             let humidity = $("<p>").text("Humidity:  " + weather.main.humidity + "  %");
             let windSpeed = $("<p>").text("Wind Speed:  " + weather.wind.speed + " MPH");
             let uvIndex = $("<p>").text("UV Index:  ")
@@ -90,7 +90,7 @@ window.onload = function () {
                 let currentIcon = forcast.list[i].weather[0].icon;
                 let icon = $("<img>").attr("src", "https://openweathermap.org/img/wn/" + currentIcon + ".png");
                 let forTemp = forcast.list[i].main.temp;
-                let formattedTemp = $("<p>").text("Temp:  " + forTemp.toFixed(1));
+                let formattedTemp = $("<p>").text("Temp:  " + forTemp.toFixed(1) + String.fromCharCode(176) + "" + " F");
                 let forHum = $("<p>").text("Humidity:  " + forcast.list[i].main.humidity + "%");
 
                 let dayContainer = $("<div>").addClass("dayContainer");
