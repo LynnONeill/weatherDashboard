@@ -1,7 +1,7 @@
 window.onload = function () {
-    let urlForecast = "http://api.openweathermap.org/data/2.5/forecast/?q=";
-    let urlWeather = "http://api.openweathermap.org/data/2.5/weather/?q=";
-    let urlUV = "http://api.openweathermap.org/data/2.5/uvi?";
+    let urlForecast = "https://api.openweathermap.org/data/2.5/forecast/?q=";
+    let urlWeather = "https://api.openweathermap.org/data/2.5/weather/?q=";
+    let urlUV = "https://api.openweathermap.org/data/2.5/uvi?";
     let apiKey = "&units=imperial&appid=789c3f277eab1cde016283c655a70824";
 
     let city = $("#citySearch").val().trim();
@@ -88,7 +88,7 @@ window.onload = function () {
                 let formattedDate = $("<p>").text(moment(forDate, "YYYY-MM-DD").format("MM/DD/YYYY"));
 
                 let currentIcon = forcast.list[i].weather[0].icon;
-                let icon = $("<img>").attr("src", "http://openweathermap.org/img/wn/" + currentIcon + ".png");
+                let icon = $("<img>").attr("src", "https://openweathermap.org/img/wn/" + currentIcon + ".png");
                 let forTemp = forcast.list[i].main.temp;
                 let formattedTemp = $("<p>").text("Temp:  " + forTemp.toFixed(1));
                 let forHum = $("<p>").text("Humidity:  " + forcast.list[i].main.humidity + "%");
