@@ -4,18 +4,18 @@ window.onload = function () {
     let urlUV = "http://api.openweathermap.org/data/2.5/uvi?";
     let apiKey = "&units=imperial&appid=789c3f277eab1cde016283c655a70824";
 
-    let city = $("#citySearch")
-    let cityArray;
+    let city = $("#citySearch").val().trim();
+    let cityArray = [];
 
 
     // When search button is clicked: search city is added to local storage,
 
     $("#search").on("click", function (event) {
         event.preventDefault();
-        let city = $("#citySearch").val().trim();
 
-        cityArray = cityArray + "," + city;
-        localStorage.setItem("cities", cityArray);
+        let city = $("#citySearch").val().trim();
+        cityArray.push(city);
+        localStorage.setItem("cities", JSON.stringify(cityArray));
 
         // appending search history buttons to searchHistory div //
         $("#searchHistory").append("<div class = 'searchHistoryButton' data-value = '" + city + "'> " + city + "</div>");
@@ -30,13 +30,12 @@ window.onload = function () {
 
         search(city);
     })
-
+    // This function will call cities from local storage to search history after page has been refreshed
     function callCities() {
-        cityString = localStorage.getItem("cities");
-        cityArray = cityString.split(",");
 
-        for (i = 0; i < cityArray.length; i++) {
-            $("#searchHistory").append("<div class = 'searchHistoryButton' data-value = '" + cityArray[i] + "'> " + cityArray[i] + "</div>");
+        let newCityArray = JSON.parse(localStorage.getItem("cities"));
+        for (let i = 0; i < newCityArray.length; i++) {
+            $("#searchHistory").append("<div class = 'searchHistoryButton' data-value = '" + newCityArray[i] + "'> " + newCityArray[i] + "</div>");
         }
         $(".searchHistoryButton").on("click", function () {
             let city = $(this).attr("data-value");
@@ -44,7 +43,6 @@ window.onload = function () {
         })
     }
     callCities();
-
 
     // This is the function that uses user input (city) to pull weather and forcast data //
     function search(city) {
@@ -69,26 +67,22 @@ window.onload = function () {
             let cor = "lat=" + weather.coord.lat + "&lon=" + weather.coord.lon;
             let uvApi = "&appid=789c3f277eab1cde016283c655a70824";
 
-                $.ajax({
-                    url: urlUV + cor + apiKey,
-                    method: "GET"
-                }).then(function(UV) {
-                    let index = $("<p>").text("UV Index: " + UV.value);
-                    $("#cityDetails").append(index);
-                })
-
-            
+            $.ajax({
+                url: urlUV + cor + apiKey,
+                method: "GET"
+            }).then(function (UV) {
+                let index = $("<p>").text("UV Index: " + UV.value);
+                $("#cityDetails").append(index);
+            })
 
             $("#cityDetails").append(newDate, curWeatherIcon, temperature, humidity, windSpeed);
         })
 
-        
         // api call for weather forcast //
         $.ajax({
             url: urlForecast + city + apiKey,
             method: "GET"
         }).then(function (forcast) {
-            // console.log(forcast);
             for (i = 4; i < 40; i += 8) {
                 let forDate = forcast.list[i].dt_txt;
                 let formattedDate = $("<p>").text(moment(forDate, "YYYY-MM-DD").format("MM/DD/YYYY"));
@@ -105,16 +99,7 @@ window.onload = function () {
 
                 dayContainer.append(formattedDate, icon, formattedTemp, forHum);
 
-                // $("#forcast").append("<div class='daycontainer'> <div class='dayTitle'>" + forDate + "</div><div class='icon'> <img src = 'http://openweathermap.org/img/wn/" + icon + "@2x.png' /> </div> <div class='temp'> Temp :" + forTemp + "</div><div class='humidity'> Humidity :" + forHum + "</div></div > ")
             }
-                
-        
-            
         })
-
-        
     }
-
-
-
 }

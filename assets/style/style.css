@@ -5,7 +5,7 @@ h1 {
     text-align: center;
 }
 .dayContainer {
-    background-color: rgb(141, 177, 189);
+    background-color: #007bff;
     float: left;
     border-radius: 25px;
     width: 150px;
@@ -13,11 +13,7 @@ h1 {
     margin-right: 5px;
 }
 
-#searchHistoryButton {
-    height: 25px;
-    border: solid;
-    border: black;
-}
+
 
 .green {
     background-color: green;
